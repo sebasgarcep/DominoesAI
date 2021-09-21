@@ -35,11 +35,11 @@ impl Player {
         board.validate_move(suggested_move).unwrap()
     }
 
-    pub fn notify_move(&self, index: usize, player_move: Move) {
+    pub fn notify_move(&mut self, index: usize, player_move: Move) {
         self.strategy.notify_move(index, player_move);
     }
 
-    pub fn notify_skip(&self, index: usize) {
+    pub fn notify_skip(&mut self, index: usize) {
         self.strategy.notify_skip(index);
     }
 }

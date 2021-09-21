@@ -31,14 +31,14 @@ impl Game {
         self.board = Board::new();
     }
 
-    fn notify_move(&self, player_move: Move) {
-        for player in self.players.iter() {
+    fn notify_move(&mut self, player_move: Move) {
+        for player in self.players.iter_mut() {
             player.notify_move(self.index, player_move);
         }
     }
 
-    fn notify_skip(&self) {
-        for player in self.players.iter() {
+    fn notify_skip(&mut self) {
+        for player in self.players.iter_mut() {
             player.notify_skip(self.index);
         }
     }
