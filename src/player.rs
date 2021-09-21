@@ -10,7 +10,7 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(strategy: Box<dyn Strategy>) -> Player {
+    pub fn new(strategy: Box<dyn Strategy>) -> Self {
         Player {
             strategy,
             score: 0,
@@ -27,19 +27,10 @@ impl Player {
     }
 
     pub fn can_move(&self, board: &Board) -> bool {
-        for piece in self.hand.iter() {
-            if let Some(_) = board.validate_move(Move::Left(*piece)) {
-                return true
-            }
-            if let Some(_) = board.validate_move(Move::Right(*piece)) {
-                return true
-            }
-        }
-
-        false
+        board.valid_moves(&self.hand).len() > 0
     }
 
-    pub fn play_move(&self, board: &Board) -> Move {
+    pub fn play_move(&mut self, board: &Board) -> Move {
         let suggested_move = self.strategy.suggest_move(&self.hand, board);
         board.validate_move(suggested_move).unwrap()
     }

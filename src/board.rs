@@ -11,10 +11,26 @@ pub struct Board {
 }
 
 impl Board {
-    pub fn new() -> Board {
+    pub fn new() -> Self {
         Board {
             pieces: vec![],
         }
+    }
+
+    pub fn valid_moves(&self, hand: &Vec<Piece>) -> Vec<Move> {
+        let mut valid_moves = vec![];
+
+
+        for piece in hand.iter() {
+            if let Some(player_move) = self.validate_move(Move::Left(*piece)) {
+                valid_moves.push(player_move);
+            }
+            if let Some(player_move) = self.validate_move(Move::Right(*piece)) {
+                valid_moves.push(player_move);
+            }
+        }
+
+        return valid_moves;
     }
 
     pub fn validate_move(&self, player_move: Move) -> Option<Move> {

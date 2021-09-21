@@ -2,8 +2,22 @@ mod board;
 mod game;
 mod piece;
 mod player;
+mod random_strategy;
 mod strategy;
 
+use crate::game::Game;
+use crate::random_strategy::RandomStrategy;
+use crate::strategy::Strategy;
+
 fn main() {
-    println!("Hello, world!");
+    let strategies: Vec<Box<dyn Strategy>> = vec![
+        Box::new(RandomStrategy::new()),
+        Box::new(RandomStrategy::new()),
+        Box::new(RandomStrategy::new()),
+        Box::new(RandomStrategy::new()),
+    ];
+
+    let mut game = Game::new(strategies);
+
+    game.play();
 }
