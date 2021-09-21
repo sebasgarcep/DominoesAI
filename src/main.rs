@@ -1,5 +1,6 @@
 mod board;
 mod game;
+mod hand;
 mod piece;
 mod player;
 mod random_strategy;

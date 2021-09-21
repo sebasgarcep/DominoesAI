@@ -1,9 +1,9 @@
 use crate::board::Board;
 use crate::board::Move;
-use crate::piece::Piece;
+use crate::hand::Hand;
 
 pub trait Strategy {
-    fn suggest_move(&mut self, hand: &Vec<Piece>, board: &Board) -> Move;
+    fn suggest_move(&mut self, hand: &Hand, board: &Board) -> Move;
 
     fn notify_move(&mut self, index: usize, player_move: Move);
     

@@ -3,7 +3,7 @@ use rand::rngs::ThreadRng;
 
 use crate::board::Board;
 use crate::board::Move;
-use crate::piece::Piece;
+use crate::hand::Hand;
 use crate::strategy::Strategy;
 
 pub struct RandomStrategy {
@@ -19,7 +19,7 @@ impl RandomStrategy {
 }
 
 impl Strategy for RandomStrategy {
-    fn suggest_move(&mut self, hand: &Vec<Piece>, board: &Board) -> Move {
+    fn suggest_move(&mut self, hand: &Hand, board: &Board) -> Move {
         let valid_moves = board.valid_moves(hand);
         let index = self.rng.gen_range(0..valid_moves.len());
         valid_moves[index]

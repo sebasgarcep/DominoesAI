@@ -1,12 +1,12 @@
 use crate::board::Board;
 use crate::board::Move;
-use crate::piece::Piece;
+use crate::hand::Hand;
 use crate::strategy::Strategy;
 
 pub struct Player {
     strategy: Box<dyn Strategy>,
     pub score: usize,
-    hand: Vec<Piece>,
+    pub hand: Hand,
 }
 
 impl Player {
@@ -14,16 +14,8 @@ impl Player {
         Player {
             strategy,
             score: 0,
-            hand: vec![],
+            hand: Hand::new(),
         }
-    }
-
-    pub fn hand_size(&self) -> usize {
-        self.hand.len()
-    }
-
-    pub fn hand_value(&self) -> usize {
-        self.hand.iter().map(|&p| p.value()).sum()
     }
 
     pub fn can_move(&self, board: &Board) -> bool {

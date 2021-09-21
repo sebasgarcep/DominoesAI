@@ -54,7 +54,7 @@ impl Game {
     }
 
     fn current_player_won(&self) -> bool {
-        self.players[self.index].hand_size() == 0
+        self.players[self.index].hand.size() == 0
     }
 
     fn stalemate(&self, board: &Board) -> bool {
@@ -62,13 +62,13 @@ impl Game {
     }
 
     fn current_player_has_smallest_hand(&self) -> bool {
-        let current_hand_value = &self.players[self.index].hand_value();
+        let current_hand_value = &self.players[self.index].hand.value();
         for index in 0..self.players.len() {
             if index == self.index {
                 continue;
             }
 
-            let hand_value = &self.players[index].hand_value();
+            let hand_value = &self.players[index].hand.value();
 
             if current_hand_value > hand_value {
                 return false;
@@ -80,7 +80,7 @@ impl Game {
 
     fn player_with_smallest_hand(&self) -> usize {
         let (index, _) = (0..self.players.len()).fold(None, |acc, index| {
-            let hand_value = self.players[index].hand_value();
+            let hand_value = self.players[index].hand.value();
             match acc {
                 None => Some((index, hand_value)),
                 Some((acc_index, acc_hand_value)) => {
@@ -127,7 +127,7 @@ impl Game {
         let mut result = 0;
         for index in 0..self.players.len() {
             if index == winner_index { continue; }
-            result += (&self.players[index]).hand_value();
+            result += (&self.players[index]).hand.value();
         }
         return result;
     }

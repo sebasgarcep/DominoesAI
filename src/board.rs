@@ -1,3 +1,4 @@
+use crate::hand::Hand;
 use crate::piece::Piece;
 
 #[derive(Copy, Clone)]
@@ -17,11 +18,11 @@ impl Board {
         }
     }
 
-    pub fn valid_moves(&self, hand: &Vec<Piece>) -> Vec<Move> {
+    pub fn valid_moves(&self, hand: &Hand) -> Vec<Move> {
         let mut valid_moves = vec![];
 
 
-        for piece in hand.iter() {
+        for piece in hand.pieces.iter() {
             if let Some(player_move) = self.validate_move(Move::Left(*piece)) {
                 valid_moves.push(player_move);
             }
