@@ -27,6 +27,8 @@ impl Game {
     }
 
     fn prepare_round(&mut self) {
+        // FIXME: Initialize player's hands
+        // FIXME: If it's the first round initialize the starting player
         self.round += 1;
         self.board = Board::new();
     }
@@ -95,6 +97,7 @@ impl Game {
     }
 
     fn play_round(&mut self) -> usize {
+        // FIXME: In the first round the player with 6/6 is the one that starts
         loop {
             if self.current_player_can_move() {
                 let player_move = self.current_player_move();
