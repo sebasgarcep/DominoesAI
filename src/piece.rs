@@ -5,6 +5,13 @@ pub struct Piece {
 }
 
 impl Piece {
+    pub fn new(left: usize, right: usize) -> Self {
+        Piece {
+            left,
+            right,
+        }
+    }
+
     pub fn reverse(&self) -> Piece {
         Piece {
             left: self.right,

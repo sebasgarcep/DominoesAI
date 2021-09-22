@@ -1,5 +1,9 @@
+use rand::RngCore;
+
 use crate::board::Board;
 use crate::board::Move;
+use crate::hand::Hand;
+use crate::piece::Piece;
 use crate::player::Player;
 use crate::strategy::Strategy;
 
@@ -13,6 +17,10 @@ pub struct Game {
 
 impl Game {
     pub fn new(strategies: Vec<Box<dyn Strategy>>) -> Self {
+        if strategies.len() != 4 {
+            panic!("You must provide exactly 4 strategies to a game.");
+        }
+
         Game {
             round: 0,
             players: strategies.into_iter().map(|s| Player::new(s)).collect(),
@@ -26,11 +34,31 @@ impl Game {
         self.index = (self.index + 1) % self.players.len();
     }
 
+    fn initialize_hands(&mut self) {
+        let mut rng = rand::thread_rng();
+
+        let mut pieces_sortable = vec![];
+
+        for i in 0..=6 {
+            for j in i..=6 {
+                pieces_sortable.push((Piece::new(i, j), rng.next_u64()));
+            }
+        }
+
+        pieces_sortable.sort_by(|(_, v1), (_, v2)| v1.cmp(v2));
+
+        let mut pieces: Vec<Piece> = pieces_sortable.into_iter().map(|(p, _)| p).collect();
+
+        for index in 0..4 {
+            self.players[index].hand = Hand::new(pieces.split_off((3 - index) * 7));
+        }
+    }
+
     fn prepare_round(&mut self) {
-        // FIXME: Initialize player's hands
         // FIXME: If it's the first round initialize the starting player
         self.round += 1;
         self.board = Board::new();
+        self.initialize_hands();
     }
 
     fn notify_move(&mut self, player_move: Move) {

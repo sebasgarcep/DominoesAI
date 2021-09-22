@@ -5,9 +5,15 @@ pub struct Hand {
 }
 
 impl Hand {
-    pub fn new() -> Self {
+    pub fn empty() -> Self {
         Hand {
             pieces: vec![],
+        }
+    }
+
+    pub fn new(pieces: Vec<Piece>) -> Self {
+        Hand {
+            pieces,
         }
     }
 

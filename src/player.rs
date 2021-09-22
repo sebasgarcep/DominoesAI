@@ -14,7 +14,7 @@ impl Player {
         Player {
             strategy,
             score: 0,
-            hand: Hand::new(),
+            hand: Hand::empty(),
         }
     }
 
