@@ -68,7 +68,9 @@ impl Game {
             }
         }
 
-        // FIXME: Force the first player to play 6/6
+        let player_move = self.current_player_force_move(Move::Left(starting_piece));
+        self.board.apply_move(player_move);
+        self.notify_move(player_move);
 
         self.to_next_player();
     }
@@ -98,6 +100,10 @@ impl Game {
 
     fn current_player_move(&mut self) -> Move {
         self.players[self.index].play_move(&self.board)
+    }
+
+    fn current_player_force_move(&mut self, player_move: Move) -> Move {
+        self.players[self.index].force_move(&self.board, player_move)
     }
 
     fn current_player_won(&self) -> bool {
