@@ -22,10 +22,11 @@ impl Player {
         board.valid_moves(&self.hand).len() > 0
     }
 
-    // FIXME: remove piece from hand
     pub fn play_move(&mut self, board: &Board) -> Move {
         let suggested_move = self.strategy.suggest_move(&self.hand, board);
-        board.validate_move(suggested_move).unwrap()
+        let player_move = board.validate_move(suggested_move).unwrap();
+        self.hand.remove(&player_move.unwrap());
+        player_move
     }
 
     pub fn notify_move(&mut self, index: usize, player_move: Move) {

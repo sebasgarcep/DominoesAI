@@ -7,6 +7,15 @@ pub enum Move {
     Right(Piece),
 }
 
+impl Move {
+    pub fn unwrap(&self) -> Piece {
+        match self {
+            Move::Left(piece) => *piece,
+            Move::Right(piece) => *piece,
+        }
+    }
+}
+
 pub struct Board {
     pieces: Vec<Piece>,
 }

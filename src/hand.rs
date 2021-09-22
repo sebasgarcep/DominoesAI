@@ -21,6 +21,10 @@ impl Hand {
         self.pieces.contains(piece)
     }
 
+    pub fn remove(&mut self, piece: &Piece) {
+        self.pieces.retain(|&p| p != *piece);
+    }
+
     pub fn size(&self) -> usize {
         self.pieces.len()
     }
