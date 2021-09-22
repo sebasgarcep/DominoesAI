@@ -54,11 +54,30 @@ impl Game {
         }
     }
 
+    fn initialize_first_round(&mut self) {
+        if self.round != 1 {
+            return;
+        }
+
+        // Set initial player
+        let starting_piece = Piece::new(6, 6);
+        for index in 0..self.players.len() {
+            if self.players[index].hand.contains(&starting_piece) {
+                self.index = index;
+                break;
+            }
+        }
+
+        // FIXME: Force the first player to play 6/6
+
+        self.to_next_player();
+    }
+
     fn prepare_round(&mut self) {
-        // FIXME: If it's the first round initialize the starting player
         self.round += 1;
         self.board = Board::new();
         self.initialize_hands();
+        self.initialize_first_round();
     }
 
     fn notify_move(&mut self, player_move: Move) {
@@ -125,7 +144,6 @@ impl Game {
     }
 
     fn play_round(&mut self) -> usize {
-        // FIXME: In the first round the player with 6/6 is the one that starts
         loop {
             if self.current_player_can_move() {
                 let player_move = self.current_player_move();

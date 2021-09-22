@@ -17,6 +17,10 @@ impl Hand {
         }
     }
 
+    pub fn contains(&self, piece: &Piece) -> bool {
+        self.pieces.contains(piece)
+    }
+
     pub fn size(&self) -> usize {
         self.pieces.len()
     }

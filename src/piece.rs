@@ -23,3 +23,12 @@ impl Piece {
         self.left + self.right
     }
 }
+
+impl PartialEq for Piece {
+    fn eq(&self, other: &Self) -> bool {
+        (self.left == other.left && self.right == other.right) ||
+        (self.left == other.right && self.right == other.left)
+    }
+}
+
+impl Eq for Piece {}
