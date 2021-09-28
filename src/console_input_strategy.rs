@@ -70,6 +70,7 @@ impl ConsoleInputStrategy {
 
 impl Strategy for ConsoleInputStrategy {
     fn suggest_move(&mut self, hand: &Hand, board: &Board) -> Move {
+        println!("--------------------------------------------------");
         println!("Board State:");
         for piece in board.pieces.iter() {
             print!("({}, {}) ", piece.left, piece.right);
@@ -84,12 +85,21 @@ impl Strategy for ConsoleInputStrategy {
         self.ask_move(hand, board)
     }
 
-    // Ignore other player's moves
+    fn notify_start_round(&mut self, index: usize, round: usize, starting_player: usize, scores: &Vec<usize>) {
+        println!("You are player {}", index);
+        println!("Current scores:");
+        for (position, score) in scores.iter().enumerate() {
+            println!("Player {}: {}", position, score);
+        }
+        println!("Starting round {}", round);
+        println!("Player {} plays first", starting_player);
+        println!("--------------------------------------------------");
+    }
+
     fn notify_move(&mut self, index: usize, player_move: Move) {
         println!("Player {} plays ({}, {})", index, player_move.unwrap().left, player_move.unwrap().right);
     }
     
-    // Ignore skips
     fn notify_skip(&mut self, index: usize) {
         println!("Player {} skips", index);
     }

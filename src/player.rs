@@ -33,6 +33,10 @@ impl Player {
         self.force_move(board, suggested_move)
     }
 
+    pub fn notify_start_round(&mut self, index: usize, round: usize, starting_player: usize, scores: &Vec<usize>) {
+        self.strategy.notify_start_round(index, round, starting_player, scores);
+    }
+
     pub fn notify_move(&mut self, index: usize, player_move: Move) {
         self.strategy.notify_move(index, player_move);
     }

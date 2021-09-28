@@ -13,6 +13,7 @@ mod strategy;
 
 use crate::noop_logger::NoopLogger;
 use crate::game::Game;
+use crate::console_input_strategy::ConsoleInputStrategy;
 use crate::heuristic_strategy::HeuristicStrategy;
 use crate::random_strategy::RandomStrategy;
 use crate::strategy::Strategy;
@@ -23,9 +24,9 @@ fn main() {
 
     for _ in 0..num_games {
         let strategies: Vec<Box<dyn Strategy>> = vec![
+            Box::new(ConsoleInputStrategy::new()),
+            Box::new(RandomStrategy::new()),
             Box::new(HeuristicStrategy::new()),
-            Box::new(RandomStrategy::new()),
-            Box::new(RandomStrategy::new()),
             Box::new(RandomStrategy::new()),
         ];
     

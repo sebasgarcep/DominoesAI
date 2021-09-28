@@ -25,6 +25,8 @@ impl Strategy for RandomStrategy {
         valid_moves[index]
     }
 
+    fn notify_start_round(&mut self, _: usize, _: usize, _: usize, _: &Vec<usize>) {}
+
     fn notify_move(&mut self, _: usize, _: Move) {}
     
     fn notify_skip(&mut self, _: usize) {}

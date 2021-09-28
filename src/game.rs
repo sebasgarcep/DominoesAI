@@ -57,7 +57,7 @@ impl Game {
         }
     }
 
-    fn initialize_first_round(&mut self) {
+    fn set_initial_player(&mut self) {
         if self.round != 1 {
             return;
         }
@@ -70,7 +70,14 @@ impl Game {
                 break;
             }
         }
+    }
 
+    fn initialize_first_round(&mut self) {
+        if self.round != 1 {
+            return;
+        }
+
+        let starting_piece = Piece::new(6, 6);
         let player_move = self.current_player_force_move(Move::Left(starting_piece));
         self.board.apply_move(player_move);
         self.notify_move(player_move);
@@ -82,12 +89,22 @@ impl Game {
         self.round += 1;
         self.board = Board::new();
         self.initialize_hands();
+        self.set_initial_player();
+        self.notify_start_round();
+        self.initialize_first_round();
+    }
+
+    fn notify_start_round(&mut self) {
         self.logger.notify_initial_state(
             self.round,
             self.index,
             self.players.iter().map(|p| p.hand.clone()).collect(),
         );
-        self.initialize_first_round();
+
+        let scores: Vec<usize> = self.players.iter().map(|p| p.score).collect();
+        for (index, player) in self.players.iter_mut().enumerate() {
+            player.notify_start_round(index, self.round, self.index, &scores);
+        }
     }
 
     fn notify_move(&mut self, player_move: Move) {

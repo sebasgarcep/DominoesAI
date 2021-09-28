@@ -70,6 +70,9 @@ impl Strategy for HeuristicStrategy {
             .unwrap()
     }
 
+    // Ignore round starts
+    fn notify_start_round(&mut self, _: usize, _: usize, _: usize, _: &Vec<usize>) {}
+
     // Ignore other player's moves
     fn notify_move(&mut self, _: usize, _: Move) {}
     
