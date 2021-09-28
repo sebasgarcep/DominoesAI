@@ -14,10 +14,17 @@ impl Move {
             Move::Right(piece) => *piece,
         }
     }
+
+    pub fn exposed_value(&self) -> usize {
+        match self {
+            Move::Left(piece) => piece.left,
+            Move::Right(piece) => piece.right,
+        }
+    }
 }
 
 pub struct Board {
-    pieces: Vec<Piece>,
+    pub pieces: Vec<Piece>,
 }
 
 impl Board {

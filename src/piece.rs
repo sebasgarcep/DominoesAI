@@ -22,6 +22,10 @@ impl Piece {
     pub fn value(&self) -> usize {
         self.left + self.right
     }
+
+    pub fn is_double(&self) -> bool {
+        self.left == self.right
+    }
 }
 
 impl PartialEq for Piece {
