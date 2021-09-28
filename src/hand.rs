@@ -1,5 +1,6 @@
 use crate::piece::Piece;
 
+#[derive(Clone)]
 pub struct Hand {
     pub pieces: Vec<Piece>,
 }

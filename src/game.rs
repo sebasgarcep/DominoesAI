@@ -3,6 +3,7 @@ use rand::RngCore;
 use crate::board::Board;
 use crate::board::Move;
 use crate::hand::Hand;
+use crate::logger::Logger;
 use crate::piece::Piece;
 use crate::player::Player;
 use crate::strategy::Strategy;
@@ -13,10 +14,11 @@ pub struct Game {
     winning_score: usize,
     board: Board,
     index: usize,
+    logger: Box<dyn Logger>,
 }
 
 impl Game {
-    pub fn new(strategies: Vec<Box<dyn Strategy>>) -> Self {
+    pub fn new(strategies: Vec<Box<dyn Strategy>>, logger: Box<dyn Logger>) -> Self {
         if strategies.len() != 4 {
             panic!("You must provide exactly 4 strategies to a game.");
         }
@@ -27,6 +29,7 @@ impl Game {
             winning_score: 100,
             board: Board::new(),
             index: 0,
+            logger,
         }
     }
 
@@ -79,16 +82,23 @@ impl Game {
         self.round += 1;
         self.board = Board::new();
         self.initialize_hands();
+        self.logger.notify_initial_state(
+            self.round,
+            self.index,
+            self.players.iter().map(|p| p.hand.clone()).collect(),
+        );
         self.initialize_first_round();
     }
 
     fn notify_move(&mut self, player_move: Move) {
+        self.logger.notify_move(self.index, player_move);
         for player in self.players.iter_mut() {
             player.notify_move(self.index, player_move);
         }
     }
 
     fn notify_skip(&mut self) {
+        self.logger.notify_skip(self.index);
         for player in self.players.iter_mut() {
             player.notify_skip(self.index);
         }
@@ -197,8 +207,10 @@ impl Game {
             let score = self.winner_score(winner_index);
             let winner = &mut self.players[winner_index];
             winner.score += score;
+            self.logger.notify_round_winner(winner_index, score, winner.score);
 
             if winner.score >= self.winning_score {
+                self.logger.notify_game_winner(winner_index);
                 return winner_index;
             }
         }
