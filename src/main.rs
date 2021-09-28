@@ -1,4 +1,5 @@
 mod board;
+mod console_input_strategy;
 mod console_logger;
 mod game;
 mod hand;
