@@ -1,22 +1,6 @@
-mod board;
-mod console_input_strategy;
-mod console_logger;
-mod game;
-mod hand;
-mod heuristic_strategy;
-mod logger;
-mod noop_logger;
-mod piece;
-mod player;
-mod random_strategy;
-mod strategy;
-
-use crate::noop_logger::NoopLogger;
-use crate::game::Game;
-use crate::console_input_strategy::ConsoleInputStrategy;
-use crate::heuristic_strategy::HeuristicStrategy;
-use crate::random_strategy::RandomStrategy;
-use crate::strategy::Strategy;
+use dominoes_ai::game::Game;
+use dominoes_ai::loggers::NoopLogger;
+use dominoes_ai::strategies::{Strategy, HeuristicStrategy, RandomStrategy};
 
 fn main() {
     let num_games = 10000;
@@ -24,9 +8,9 @@ fn main() {
 
     for _ in 0..num_games {
         let strategies: Vec<Box<dyn Strategy>> = vec![
-            Box::new(ConsoleInputStrategy::new()),
-            Box::new(RandomStrategy::new()),
             Box::new(HeuristicStrategy::new()),
+            Box::new(RandomStrategy::new()),
+            Box::new(RandomStrategy::new()),
             Box::new(RandomStrategy::new()),
         ];
     

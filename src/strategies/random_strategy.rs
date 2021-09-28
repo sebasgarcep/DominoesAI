@@ -1,10 +1,9 @@
 use rand::Rng;
 use rand::rngs::ThreadRng;
 
-use crate::board::Board;
-use crate::board::Move;
-use crate::hand::Hand;
-use crate::strategy::Strategy;
+use crate::game::{Board, Hand, Move};
+
+use super::strategy::Strategy;
 
 pub struct RandomStrategy {
     rng: ThreadRng,

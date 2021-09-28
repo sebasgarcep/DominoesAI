@@ -1,7 +1,8 @@
-use crate::board::Board;
-use crate::board::Move;
-use crate::hand::Hand;
-use crate::strategy::Strategy;
+use crate::strategies::Strategy;
+
+use super::board::Board;
+use super::hand::Hand;
+use super::r#move::Move;
 
 pub struct Player {
     strategy: Box<dyn Strategy>,

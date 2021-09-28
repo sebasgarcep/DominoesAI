@@ -1,6 +1,4 @@
-use crate::board::Board;
-use crate::board::Move;
-use crate::hand::Hand;
+use crate::game::{Board, Hand, Move};
 
 pub trait Strategy {
     fn suggest_move(&mut self, hand: &Hand, board: &Board) -> Move;

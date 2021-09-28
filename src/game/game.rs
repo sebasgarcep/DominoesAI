@@ -1,12 +1,13 @@
 use rand::RngCore;
 
-use crate::board::Board;
-use crate::board::Move;
-use crate::hand::Hand;
-use crate::logger::Logger;
-use crate::piece::Piece;
-use crate::player::Player;
-use crate::strategy::Strategy;
+use crate::loggers::Logger;
+use crate::strategies::Strategy;
+
+use super::board::Board;
+use super::hand::Hand;
+use super::r#move::Move;
+use super::piece::Piece;
+use super::player::Player;
 
 pub struct Game {
     round: usize,

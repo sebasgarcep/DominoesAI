@@ -1,6 +1,6 @@
-use crate::board::Move;
-use crate::hand::Hand;
-use crate::logger::Logger;
+use crate::game::{Hand, Move};
+
+use super::logger::Logger;
 
 pub struct NoopLogger {}
 

@@ -1,4 +1,4 @@
-use crate::piece::Piece;
+use super::piece::Piece;
 
 #[derive(Clone)]
 pub struct Hand {

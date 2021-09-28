@@ -1,5 +1,4 @@
-use crate::board::Move;
-use crate::hand::Hand;
+use crate::game::{Hand, Move};
 
 pub trait Logger {
     fn notify_initial_state(&mut self, round: usize, starting_player: usize, hands: Vec<Hand>);
